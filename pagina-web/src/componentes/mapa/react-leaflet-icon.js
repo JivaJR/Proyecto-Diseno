@@ -6,3 +6,4 @@ export const MarkerIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow
 });
+

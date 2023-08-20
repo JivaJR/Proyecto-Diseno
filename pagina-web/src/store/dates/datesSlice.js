@@ -8,6 +8,8 @@ export const datesSlice = createSlice({
         time: '',
         long:'',
         lat: '',
+        latlong:[],
+        timehour:[]
     },
     reducers: {
         searchingDates: (state,action) =>{
@@ -17,11 +19,14 @@ export const datesSlice = createSlice({
             state.long=action.payload.Longitud;
             state.lat=action.payload.Latitud;
         },
+        polilineDates: (state,action) => {
+            state.latlong=action.payload;
+        }
     }
 });
 
 export const { 
 
-    searchingDates
+    searchingDates,polilineDates
 
 } = datesSlice.actions;

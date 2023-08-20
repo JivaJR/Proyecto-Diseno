@@ -1,10 +1,7 @@
 import React from 'react'
-import {useSelector} from 'react-redux';
 import '../index.css'
 
-export const Table = () => {
-    console.log("se cargo la tabla")
-    const {date,time,long,lat} = useSelector(state => state.dates)
+export const TableCoors = ({date,time,long,lat}) => {
 
     return (
         <section className='container-coors'>
@@ -19,11 +16,11 @@ export const Table = () => {
                         <td className='table-item'>{time}</td>
                     </tr>
                     <tr className='colum'>
-                        <td className='table-title'>Long</td>
+                        <td className='table-title'>Longitud</td>
                         <td className='table-item'>{long}</td>
                     </tr>
                     <tr className='colum'>
-                        <td className='table-title'>Lat</td>
+                        <td className='table-title'>Latitud</td>
                         <td className='table-item'>{lat}</td>
                     </tr>
                 </tbody>

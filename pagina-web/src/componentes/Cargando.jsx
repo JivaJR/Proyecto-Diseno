@@ -1,7 +1,13 @@
 import React from 'react'
 import { CircularProgress, Grid } from '@mui/material'
+import { useDispatch } from 'react-redux';
+import { searchDates } from '../store/dates/thunks';
 
 export const Cargando = () => {
+    const dispatch=useDispatch();
+    setInterval(() => {
+        dispatch(searchDates())
+    }, 1000);
     return (
         <Grid
             container

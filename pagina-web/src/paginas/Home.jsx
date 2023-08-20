@@ -1,25 +1,24 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Table } from '../componentes/Table'
 import { ReactMap } from '../componentes/mapa/ReactMap'
-import { Cargando } from '../componentes/Cargando'
 import {searchDates} from '../store/dates/thunks'
+import { TableCoors } from '../componentes/TableCoors'
 
 export const Home = () => {
+
+    const Datos = useSelector(state => state.dates)
+    const center = [Datos.lat,Datos.long]
     const dispatch=useDispatch();
+
     setInterval(() => {
         dispatch(searchDates())
     }, 1000);
-    const Datos = useSelector(state => state.dates)
-    if (Datos.id!="") 
+
     return (
         <>
-            <Table/>
+            <TableCoors {...Datos}/>
             {/* <MapView/> */}
-            <ReactMap {...Datos}/>
+            <ReactMap drawerWidth={'100%'} {...Datos} center={center}/>
         </>
-    )
-    return (
-        <Cargando/>
     )
 }

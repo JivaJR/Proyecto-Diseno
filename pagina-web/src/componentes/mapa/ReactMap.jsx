@@ -4,21 +4,21 @@ import 'leaflet/dist/leaflet.css';
 import '../../css/react-leaflet.css';
 import {MarkerIcon} from './react-leaflet-icon.js';
 import { useSelector } from 'react-redux';
-import { useMapEvents } from 'react-leaflet/hooks'
+import { Box } from '@mui/material';
 
-export const ReactMap = ({lat,long,id}) => {
+export const ReactMap = ({lat,long,id,drawerWidth,center}) => {
+    
     if(long=='') long='-74.246666666667'
     if(lat=='') lat='11.00666666666'
     // const {lat,long,id} = useSelector(state =>state.dates)
     lat=lat.toString();
     long=long.toString();
+    // const [center, setcenter] = useState([lat,long]);
 
-    const [center, setcenter] = useState([lat,long]);
+    // useEffect(() => {
+    //     setcenter([lat,long])
+    // }, [id])
 
-    useEffect(() => {
-        setcenter([lat,long])
-    }, [id])
-    
     function ChangeView({ center, zoom }) {
         const map = useMap();
         map.setView(center, zoom);
@@ -27,8 +27,9 @@ export const ReactMap = ({lat,long,id}) => {
     
 
     return (
-        <MapContainer center={center} zoom={4}>
-            <ChangeView center={center} zoom={16} /> 
+        <Box width={drawerWidth}>
+            <MapContainer center={center} zoom={4}>
+            <ChangeView center={center} zoom={16} />
             <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -37,6 +38,8 @@ export const ReactMap = ({lat,long,id}) => {
                 <Popup><pre>{"Latitude: "+ center[0]+ " ,Longitude: "+ center[1]}</pre></Popup>
             </Marker>
         </MapContainer>
+        </Box>
+        
     )
 }
 
