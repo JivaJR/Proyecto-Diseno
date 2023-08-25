@@ -6,18 +6,10 @@ import {MarkerIcon} from './react-leaflet-icon.js';
 import { useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 
-export const ReactMap = ({lat,long,id,drawerWidth,center}) => {
-    
-    if(long=='') long='-74.246666666667'
-    if(lat=='') lat='11.00666666666'
-    // const {lat,long,id} = useSelector(state =>state.dates)
+export const ReactMap = ({lat,long,center}) => {
+
     lat=lat.toString();
     long=long.toString();
-    // const [center, setcenter] = useState([lat,long]);
-
-    // useEffect(() => {
-    //     setcenter([lat,long])
-    // }, [id])
 
     function ChangeView({ center, zoom }) {
         const map = useMap();
@@ -25,9 +17,8 @@ export const ReactMap = ({lat,long,id,drawerWidth,center}) => {
         return null;
     }
     
-
     return (
-        <Box width={drawerWidth}>
+        <Box>
             <MapContainer center={center} zoom={4}>
             <ChangeView center={center} zoom={16} />
             <TileLayer

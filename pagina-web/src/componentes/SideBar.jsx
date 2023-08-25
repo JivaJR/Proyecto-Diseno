@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { searchDatesPoliline } from '../store/dates/thunks';
 
 
-export const SideBar = ({drawerWidth = 240}) => {
+export const SideBar = ({drawerWidth = 270}) => {
     const today = new Date;
     const newmin = new Date("2023-07-01")
     
@@ -37,16 +37,18 @@ export const SideBar = ({drawerWidth = 240}) => {
         dispatch(searchDatesPoliline(inicial,final))
     } 
     
-
     return (
-        <Box component='nav'
-            sx={{ paddingLeft:'5px', width:{sm:drawerWidth},flexShrink:{sm:0} }}
-        >
-            <Typography variant='h6' marginBottom={'10px'}> Fecha de inicio</Typography>
-            <Calendar onChange={newmindate} value={initialDate} maxDate={maxdatefi} minDate={newmin}/>
-            <Typography variant='h6' marginBottom={'10px'} marginTop={'10px'}>Fecha final</Typography>
-            <Calendar onChange={newmaxdate} value={finalDate} maxDate={today} minDate={mindateff}/>
-            <button onClick={buscarfecha}>Buscar</button>
+        <Box>
+            <Box
+            className='calendario'
+            >
+                <Typography variant='h6' marginBottom={'10px'}> Fecha de inicio</Typography>
+                <Calendar margin='auto'onChange={newmindate} value={initialDate} maxDate={maxdatefi} minDate={newmin}/>
+                <Typography variant='h6' marginBottom={'10px'} marginTop={'10px'}>Fecha final</Typography>
+                <Calendar onChange={newmaxdate} value={finalDate} maxDate={today} minDate={mindateff}/>
+                <button onClick={buscarfecha}>Buscar</button>
+            </Box>
         </Box>
+        
     )
 }

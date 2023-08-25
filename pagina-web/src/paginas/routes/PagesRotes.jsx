@@ -1,6 +1,6 @@
 import React from 'react'
 import { Home } from '../Home'
-import { Consultas } from '../Consultas'
+import { Consultas2 } from '../Consultas2'
 import { Navigate, Route,Routes } from 'react-router-dom'
 import { NavBar } from '../../ui/NavBar'
 import { useSelector } from 'react-redux'
@@ -12,11 +12,10 @@ export const PagesRotes = () => {
     return (
     
         <>
-            
             <NavBar/>
             <br/>
             <Routes>
-                    <Route path="consultas" element={<Consultas />} />
+                    <Route path="consultas" element={<Consultas2 />} />
                     <Route path="home" element={<Home />} />
                                     
                     <Route path="/" element={<Navigate to="/home" />} />

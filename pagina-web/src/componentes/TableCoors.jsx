@@ -26,7 +26,6 @@ export const TableCoors = ({date,time,long,lat}) => {
                 </tbody>
             
             </table>
-            {/* <button onClick={sendToDb}></button> */}
         </section>
     )
 }

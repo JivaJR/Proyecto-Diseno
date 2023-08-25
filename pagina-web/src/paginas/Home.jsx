@@ -18,7 +18,7 @@ export const Home = () => {
         <>
             <TableCoors {...Datos}/>
             {/* <MapView/> */}
-            <ReactMap drawerWidth={'100%'} {...Datos} center={center}/>
+            <ReactMap {...Datos} center={center}/>
         </>
     )
 }

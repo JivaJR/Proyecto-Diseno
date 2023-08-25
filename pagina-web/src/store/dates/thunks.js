@@ -24,7 +24,6 @@ export const searchDatesPoliline = (inicial,final) => {
             console.log(data)
             dispatch(polilineDates(data));
         })
-        // dispatch(setNotes(notes));
     }
 
 }

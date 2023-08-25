@@ -21,9 +21,19 @@ export const NavBar = () => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+    let activeStyle = {
+        textDecoration: "none",
+        display:'none',
+        color: 'inherit',
+    };
+    let nonActiveStyle = {
+        textDecoration: "none",
+        color: 'inherit',
+    };
+
     return (
         <Box sx={{width:'100%', flexGrow:2,position:'fixed',zIndex:1}}>
-            <AppBar position="static">
+            <AppBar  sx={{flexDirection:'row',position:"static"}}>
                 <Toolbar>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -56,21 +66,25 @@ export const NavBar = () => {
                         >
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <NavLink 
-                                    to={"/"}
+                                    to={"/home"}
+                                    style={({ isActive }) =>
+                                        isActive ? activeStyle : nonActiveStyle
+                                    }
                                 >
                                     <Typography  
                                         textAlign="center"
-                                        textDecoration='none'
                                     >
                                         Home
                                     </Typography>
                                 </NavLink>
                                 <NavLink 
                                     to={"/consultas"}
+                                    style={({ isActive }) =>
+                                        isActive ? activeStyle : nonActiveStyle
+                                    }
                                 >
                                     <Typography  
                                         textAlign="center"
-                                        textDecoration='none'
                                     >
                                         Consultas
                                     </Typography>
@@ -88,7 +102,7 @@ export const NavBar = () => {
                             fontWeight: 700,
                             letterSpacing: '.3rem',
                             color: 'inherit',
-                            textDecoration: 'none',
+                            textDecoration: 'none'
                         }}
                         href="/"
                     >
@@ -112,7 +126,7 @@ export const NavBar = () => {
                     </Typography>
                 </Toolbar>
             </AppBar>
-            </Box>
+        </Box>
     )
 }
 

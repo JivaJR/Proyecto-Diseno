@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useMapEvents } from 'react-leaflet/hooks'
 import { Box } from '@mui/material';
 
-export const ReactMapConsulta = ({lat,long,drawerWidth,polyline=[]}) => {
+export const ReactMapConsulta = ({lat,long,polyline=[]}) => {
 
     if(polyline.length != 0) {
 
@@ -42,7 +42,8 @@ export const ReactMapConsulta = ({lat,long,drawerWidth,polyline=[]}) => {
     
 
     return (
-        <Box width={drawerWidth}>
+        <Box 
+        >
             <MapContainer center={center} zoom={4}>
             <ChangeView center={center} zoom={16} />
             <Polyline pathOptions={limeOptions} positions={polyline} />
