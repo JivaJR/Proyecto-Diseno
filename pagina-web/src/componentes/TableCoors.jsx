@@ -1,7 +1,7 @@
 import React from 'react'
 import '../index.css'
 
-export const Table = ({date,time,long,lat}) => {
+export const TableCoors = ({date,time,long,lat}) => {
 
     return (
         <section className='container-coors'>
