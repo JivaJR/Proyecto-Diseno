@@ -69,7 +69,7 @@ socket.bind(8050);
 app.set('port',process.env.PORT || 8050)
 app.use(express.json());
 app.use(express.static('src'))
-app.listen(app.get('port'), ()=>{
+app.listen(app.get('port'), '0.0.0.0' ,()=>{
     console.log("Alojado en el puerto:",app.get('port'))
 })
 
