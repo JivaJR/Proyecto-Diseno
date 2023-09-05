@@ -1,41 +1,25 @@
 html
     head
         title= title
+        link(rel="stylesheet",href="css/style.css")
     body
+        h1(class="titulotabla") Datos en tiempo real
         section(class='container-coors')
             table(class='content-table')
                 tbody
                     tr(class='colum')
                         td(class='table-title') Id envio
-                        td(class='table-item')= ID
+                        td(class='table-item' id="idEnvio")
                     tr(class='colum')
                         td(class='table-title') fecha
-                        td(class='table-item')= Fecha
+                        td(class='table-item' id="fecha")
                     tr(class='colum') 
                         td(class='table-title') Hora
-                        td(class='table-item')= Hora
+                        td(class='table-item' id="hora")
                     tr(class='colum') 
                         td(class='table-title') Longitud
-                        td(class='table-item')= Longitud
+                        td(class='table-item' id="long")
                     tr(class='colum') 
-                        td(class='table-title') Latitud
-                        td(class='table-item')= Latitud
-    style.
-        .container-coors{
-            padding-top:50px;
-            display: flex;
-            justify-content: center;
-        }
-        .content-table{
-            width: 60%;
-            background-color: rgb(0, 0, 0);
-            text-align: center;
-        }
-        .table-title{
-            width: 30%;
-            background-color: yellow;
-        }
-        .table-item{
-            width: 60%;
-            background-color: white;
-        }
+                        td(class='table-title' ) Latitud
+                        td(class='table-item' id="lat")
+    script(type="module" src="js/tiempoReal.js")

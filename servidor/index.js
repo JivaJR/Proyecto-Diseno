@@ -31,7 +31,10 @@ app.get('/',(req,res) =>{
     let tabledb = 'gpsposition';
     var sqlpetget = `SELECT * from ${tabledb} WHERE IdEnvio = (SELECT MAX(IdEnvio ) FROM ${tabledb});`;
     conexion.query(sqlpetget, (err, mess, fields) => {
-        res.render('index', { title: 'Proyecto Diseño',ID: mess[0].IdEnvio , Fecha: mess[0].Fecha.toLocaleDateString('it-IT'), Hora: mess[0].Hora, Longitud: mess[0].Longitud, Latitud: mess[0].Latitud});
+        res.status(200).json({
+            data:mess
+        })
+        // res.render('index', { title: 'Proyecto Diseño',ID: mess[0].IdEnvio , Fecha: mess[0].Fecha.toLocaleDateString('it-IT'), Hora: mess[0].Hora, Longitud: mess[0].Longitud, Latitud: mess[0].Latitud});
     });
 })
 
@@ -110,9 +113,10 @@ socket.on('message', (msg, rinfo) => {
 
 socket.bind(8080);
 
+app.use(express.static("./public"));
 app.set('port',process.env.PORT || 8080)
 app.use(express.json());
-app.use(express.static('src'))
+// app.use(express.static('src'))
 app.listen(app.get('port'), ()=>{
     console.log("Alojado en el puerto:",app.get('port'))
 })
