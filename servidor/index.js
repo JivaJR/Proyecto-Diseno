@@ -23,7 +23,7 @@ conexion.connect(function(err) {
 });
 
 app.get('/',(req,res) =>{
-    res.send('Inicio servidor')
+    res.send('Inicio serviddor')
 })
 
 app.get('/recibir',(req,res) => {
