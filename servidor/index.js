@@ -7,61 +7,54 @@ const socket = dgram.createSocket('udp4');
 const app = express();
 app.use(cors())
 
-// export const conexion = mysql.createConnection({
-//     host : "localhost",
-//     database : "disenoelectronico",
-//     user : "root",
-//     password : ""
-// });
+export const conexion = mysql.createConnection({
+    host : "diseno-db.cfblivji1aj6.us-east-1.rds.amazonaws.com",
+    database : "disenodb",
+    user : "admin",
+    password : "DisenodbAndrea123"
+});
 
-// conexion.connect(function(err) {
-//     if (err) {
-//         console.error('Error de conexion: ' + err.stack);
-//         return;
-//     }
-//     console.log('BD Conectada exitosamente');
-// });
+conexion.connect(function(err) {
+    if (err) {
+        console.error('Error de conexion: ' + err.stack);
+        return;
+    }
+    console.log('BD Conectada exitosamente');
+});
 
 app.get('/',(req,res) =>{
     res.send('Inicio servidor')
 })
 
 app.get('/recibir',(req,res) => {
-    // let tabledb = 'gpsposition';
-    // var sqlpetget = `SELECT * from ${tabledb} WHERE IdEnvio = (SELECT MAX(IdEnvio ) FROM ${tabledb});`;
-    // conexion.query(sqlpetget, (err, mess, fields) => {
+    let database = 'disenodb';
+    let tabledb = 'gpspostion';
+    var sqlpetget = `SELECT * FROM ${database}.${tabledb} WHERE IdEnvio = (SELECT MAX(IdEnvio ) FROM ${database}.${tabledb});`;
+    conexion.query(sqlpetget, (err, mess, fields) => {
         res.status(200).json({
-            "data": [
-                {
-                "IdEnvio": 408,
-                "Fecha": "2023-09-02T05:00:00.000Z",
-                "Longitud": -73.97964969277382,
-                "Latitud": 40.730549025972806,
-                "Hora": "09:08:09"
-                }
-                ]
+            data:mess,
         });
-    // });
+    });
 })
 
 socket.on('message', (msg, rinfo) => {
     console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
-    // msg=msg.toString()
-    // const datos = msg.split(' || ');
-    // console.log(datos)
-    // let tabledb = 'gpsposition';
-    // var time = datos[1]
-    // var fecha = datos[0]
-    // var lon = datos[3]
-    // var lat = datos[2]
-    // var sqlpet=`INSERT INTO ${tabledb} (IdEnvio, Fecha, Longitud, Latitud, Hora) VALUES (NULL,STR_TO_DATE('${fecha}','%Y-%m-%d'),${lon},${lat},STR_TO_DATE('${time}','%H:%i:%s'));`;
-    // conexion.query(sqlpet, (err) => {
-    //     if (!err) {
-    //     console.log('Base de datos modificada exitosamente desde udp')
-    //     } else {
-    //     console.log(err);
-    //     }
-    // })
+    msg=msg.toString()
+    const datos = msg.split(' || ');
+    console.log(datos)
+    let tabledb = 'gpsposition';
+    var time = datos[1]
+    var fecha = datos[0]
+    var lon = datos[3]
+    var lat = datos[2]
+    var sqlpet=`INSERT INTO ${tabledb} (IdEnvio, Fecha, Longitud, Latitud, Hora) VALUES (NULL,STR_TO_DATE('${fecha}','%Y-%m-%d'),${lon},${lat},STR_TO_DATE('${time}','%H:%i:%s'));`;
+    conexion.query(sqlpet, (err) => {
+        if (!err) {
+        console.log('Base de datos modificada exitosamente desde udp')
+        } else {
+        console.log(err);
+        }
+    })
 });
 
 socket.bind(8050);
