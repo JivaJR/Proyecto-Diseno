@@ -3,6 +3,8 @@ import mysql from 'mysql'
 import cors from 'cors'
 import dgram from 'dgram'
 
+//ole
+
 const socket = dgram.createSocket('udp4');
 const app = express();
 app.use(cors())
