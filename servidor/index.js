@@ -4,8 +4,6 @@ import cors from 'cors'
 import dgram from 'dgram'
 import env from './env.js'
 
-//ole
-
 const socket = dgram.createSocket('udp4');
 const app = express();
 app.use(cors())
@@ -26,13 +24,13 @@ conexion.connect(function(err) {
 });
 
 app.get('/',(req,res) =>{
-    res.redirect('/recibir')
+    res.send('Bienvenido a mi servidor UDP')
 })
 
 app.get('/recibir',(req,res) => {
     let tabledb = env.TABLE;
     var sqlpetget = `SELECT * FROM ${tabledb} WHERE IdEnvio = (SELECT MAX(IdEnvio ) FROM ${tabledb});`;
-    conexion.query(sqlpetget, (err, mess, fields) => {
+    conexion.query(sqlpetget, (err, mess) => {
         res.status(200).json({
             data:mess,
         });
@@ -40,30 +38,33 @@ app.get('/recibir',(req,res) => {
 })
 
 socket.on('message', (msg, rinfo) => {
+
     console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
     msg=msg.toString()
     const datos = msg.split(' || ');
     console.log(datos)
-    let tabledb = env.TABLE;
-    var time = datos[1]
     var fecha = datos[0]
-    var lon = datos[3]
+    var time = datos[1]
     var lat = datos[2]
+    var lon = datos[3]
+
+    let tabledb = env.TABLE;
+    
     var sqlpet=`INSERT INTO ${tabledb} (IdEnvio, Fecha, Longitud, Latitud, Hora) VALUES (NULL,STR_TO_DATE('${fecha}','%Y-%m-%d'),${lon},${lat},STR_TO_DATE('${time}','%H:%i:%s'));`;
     conexion.query(sqlpet, (err) => {
         if (!err) {
-        console.log('Base de datos modificada exitosamente desde udp')
+            console.log('Base de datos modificada exitosamente desde udp')
         } else {
-        console.log(err);
+            console.log(err);
         }
     })
+
 });
 
 socket.bind(env.PORT);
 
 app.set('port',env.PORT)
 app.use(express.json());
-app.use(express.static('src'))
 app.listen(app.get('port'), '0.0.0.0' ,()=>{
     console.log("Alojado en el puerto:",app.get('port'))
 })
