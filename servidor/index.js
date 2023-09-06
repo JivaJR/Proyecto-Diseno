@@ -42,12 +42,13 @@ socket.on('message', (msg, rinfo) => {
     msg=msg.toString()
     const datos = msg.split(' || ');
     console.log(datos)
-    let tabledb = 'gpsposition';
+    let database = 'disenodb';
+    let tabledb = 'gpspostion';
     var time = datos[1]
     var fecha = datos[0]
     var lon = datos[3]
     var lat = datos[2]
-    var sqlpet=`INSERT INTO ${tabledb} (IdEnvio, Fecha, Longitud, Latitud, Hora) VALUES (NULL,STR_TO_DATE('${fecha}','%Y-%m-%d'),${lon},${lat},STR_TO_DATE('${time}','%H:%i:%s'));`;
+    var sqlpet=`INSERT INTO ${database}.${tabledb} (IdEnvio, Fecha, Longitud, Latitud, Hora) VALUES (NULL,STR_TO_DATE('${fecha}','%Y-%m-%d'),${lon},${lat},STR_TO_DATE('${time}','%H:%i:%s'));`;
     conexion.query(sqlpet, (err) => {
         if (!err) {
         console.log('Base de datos modificada exitosamente desde udp')
