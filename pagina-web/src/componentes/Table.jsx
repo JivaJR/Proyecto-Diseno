@@ -2,9 +2,7 @@ import React from 'react'
 import {useSelector} from 'react-redux';
 import '../index.css'
 
-export const Table = () => {
-    console.log("se cargo la tabla")
-    const {date,time,long,lat} = useSelector(state => state.dates)
+export const Table = ({date,time,long,lat}) => {
 
     return (
         <section className='container-coors'>

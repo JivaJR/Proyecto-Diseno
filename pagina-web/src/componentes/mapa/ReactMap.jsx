@@ -7,9 +7,6 @@ import { useSelector } from 'react-redux';
 import { useMapEvents } from 'react-leaflet/hooks'
 
 export const ReactMap = ({lat,long,id}) => {
-    if(long=='') long='-74.246666666667'
-    if(lat=='') lat='11.00666666666'
-    // const {lat,long,id} = useSelector(state =>state.dates)
     lat=lat.toString();
     long=long.toString();
 

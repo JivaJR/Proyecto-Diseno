@@ -12,13 +12,13 @@ export const Home = () => {
     }, 1000);
     const Datos = useSelector(state => state.dates)
     if (Datos.id!="") 
-    return (
-        <>
-            <Table/>
-            {/* <MapView/> */}
-            <ReactMap {...Datos}/>
-        </>
-    )
+        return (
+            <>
+                <Table {...Datos}/>
+                {/* <MapView/> */}
+                <ReactMap {...Datos}/>
+            </>
+        )
     return (
         <Cargando/>
     )
