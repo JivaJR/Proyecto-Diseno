@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table } from '../componentes/Table'
 import { ReactMap } from '../componentes/mapa/ReactMap'
@@ -10,12 +10,13 @@ export const Home = () => {
     setInterval(() => {
         dispatch(searchDates())
     }, 1000);
+
     const Datos = useSelector(state => state.dates)
+    
     if (Datos.id!="") 
         return (
             <>
                 <Table {...Datos}/>
-                {/* <MapView/> */}
                 <ReactMap {...Datos}/>
             </>
         )

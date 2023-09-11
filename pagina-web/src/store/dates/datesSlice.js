@@ -21,6 +21,8 @@ export const datesSlice = createSlice({
             state.long=action.payload.Longitud;
             state.lat=action.payload.Latitud;
             if(state.lasid!==action.payload.IdEnvio){
+                var latlong=[action.payload.Latitud,action.payload.Longitud];
+                state.polireal.push(latlong);
                 if(state.lasid !== 0) {
                     localStorage.setItem("polireal", JSON.stringify(state.polireal));
                 }
