@@ -2,29 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../../css/react-leaflet.css';
-import {MarkerIcon} from './react-leaflet-icon.js';
+import {CircleIcon, MarkerIcon} from './react-leaflet-icon.js';
 import { useSelector } from 'react-redux';
 import { useMapEvents } from 'react-leaflet/hooks'
 
-export const ReactMap = ({lat,long,id,polireal}) => {
-    var polyline=polireal;
-    
-    if(polireal.length != 0) {
+export const ReactMap = ({id,polireal}) => {
+    var polyline=[]
+    polireal.map(datos =>{
+        var latlong=[datos.Latitud,datos.Longitud];
+        polyline.push(latlong)
+    })
         var latlon=polyline[0]
-        lat=latlon[0].toString();
-        long=latlon[1].toString();
+        var lat=latlon[0].toString();
+        var long=latlon[1].toString();
 
         var condf=polyline.length-1;
         var latlon2=polyline[condf]
         var latf=latlon2[0].toString();
         var longf=latlon2[1].toString();
-    } else {
-        console.log(lat)
-        lat=lat.toString();
-        long=long.toString();
-        var latf=0;
-        var longf=0;
-    }
+        
     const [center, setcenter] = useState([lat,long]);
     var [mfinal, setmfinal] = useState([0,0])
 
@@ -49,7 +45,14 @@ export const ReactMap = ({lat,long,id,polireal}) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={center} icon={MarkerIcon} >
+            {
+                polireal.map(punto =>{
+                    <Marker position={[punto.Latitud,punto.Longitud]} icon={CircleIcon}>
+                        <Popup><pre>{"Latitude: "+ punto.Latitud + " ,Longitude: "+ punto.Longitud + ",Hora: " + punto.Hora}</pre></Popup>
+                    </Marker>
+                })
+            }
+            <Marker position={center} icon={MarkerIcon} className="marcador">
                 <Popup><pre>{"Latitude: "+ center[0]+ " ,Longitude: "+ center[1]}</pre></Popup>
             </Marker>
             <Marker position={mfinal} icon={MarkerIcon} >
