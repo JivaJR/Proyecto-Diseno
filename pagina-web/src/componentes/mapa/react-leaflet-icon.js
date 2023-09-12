@@ -5,10 +5,13 @@ import redcircle from '/redcircle.png'
 
 export const MarkerIcon = L.icon({
     iconUrl: icon,
+    iconSize: [32, 42],
+    iconAnchor: [16, 42],
     shadowUrl: iconShadow
 });
 
 export const CircleIcon = L.icon({
     iconUrl: redcircle,
-    shadowUrl: iconShadow
+    iconSize: [10, 10],
+    // shadowUrl: iconShadow,
 });

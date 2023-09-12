@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import '../../css/react-leaflet.css';
 import {CircleIcon, MarkerIcon} from './react-leaflet-icon.js';
 import { useSelector } from 'react-redux';
-import { useMapEvents } from 'react-leaflet/hooks'
+
 
 export const ReactMap = ({id,polireal}) => {
     var polyline=[]
@@ -34,7 +34,7 @@ export const ReactMap = ({id,polireal}) => {
         map.setView(center, zoom);
         return null;
     }
-    const limeOptions = { color: 'lime' }
+    const limeOptions = { color: 'lime'}
     
 
     return (
@@ -45,16 +45,19 @@ export const ReactMap = ({id,polireal}) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            {
-                polireal.map(punto =>{
-                    <Marker position={[punto.Latitud,punto.Longitud]} icon={CircleIcon}>
-                        <Popup><pre>{"Latitude: "+ punto.Latitud + " ,Longitude: "+ punto.Longitud + ",Hora: " + punto.Hora}</pre></Popup>
-                    </Marker>
-                })
-            }
             <Marker position={center} icon={MarkerIcon} className="marcador">
                 <Popup><pre>{"Latitude: "+ center[0]+ " ,Longitude: "+ center[1]}</pre></Popup>
             </Marker>
+            {
+                polireal.map(punto =>(
+                    // var latp=punto.Latitud.toString();
+                    // var longp=punto.Longitud.toString();
+                    // console.log([latp,longp]);
+                    <Marker key={punto.IdEnvio} position={[punto.Latitud.toString(),punto.Longitud.toString()]} icon={CircleIcon}>
+                        <Popup><pre>{"Hora: " + punto.Hora}</pre></Popup>
+                    </Marker>
+                ))
+            }
             <Marker position={mfinal} icon={MarkerIcon} >
                 <Popup><pre>{"Latitude: "+ center[0]+ " ,Longitude: "+ center[1]}</pre></Popup>
             </Marker>
