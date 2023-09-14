@@ -40,7 +40,7 @@ export const ReactMap = ({id,polireal}) => {
     
 
     return (
-        <MapContainer center={center} zoom={4}>
+        <MapContainer center={center} zoom={12}>
             <ChangeView center={center} zoom={10}/> 
             <Polyline pathOptions={limeOptions} positions={polyline}/>
             <TileLayer

@@ -16,7 +16,7 @@ export const Home = () => {
     const removeLocal = () =>{
         localStorage.removeItem("polireal");
         localStorage.removeItem("lastId")
-        
+        dispatch(searchDates())
     }
 
 

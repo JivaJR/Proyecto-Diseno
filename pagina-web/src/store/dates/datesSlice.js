@@ -30,11 +30,17 @@ export const datesSlice = createSlice({
                 localStorage.setItem("lastId", state.lasid);
             };
         },
+        eliminarstore:(state) => {
+            localStorage.removeItem("lasId");
+            localStorage.removeItem("polireal");
+            state.polireal=[]
+        }
     }
 });
 
 export const { 
 
-    searchingDates
+    searchingDates,
+    eliminarstore
 
 } = datesSlice.actions;
