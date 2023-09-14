@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../../css/react-leaflet.css';
-import {CircleIcon, MarkerIcon} from './react-leaflet-icon.js';
-import { useSelector } from 'react-redux';
+import {CircleIcon, MarkerIcon, StartIcon} from './react-leaflet-icon.js';
 
 
 export const ReactMap = ({id,polireal}) => {
     var polyline=[]
+
     polireal.map(datos =>{
         var latlong=[datos.Latitud,datos.Longitud];
         polyline.push(latlong)
     })
+
         var latlon=polyline[0]
         var lat=latlon[0].toString();
         var long=latlon[1].toString();
@@ -29,9 +30,10 @@ export const ReactMap = ({id,polireal}) => {
         setmfinal([latf,longf])
     }, [id])
     
-    function ChangeView({ center, zoom }) {
+    function ChangeView({ center,zoom}) {
         const map = useMap();
-        map.setView(center, zoom);
+        map.setView(center);
+        // map.setView(center,zoom);
         return null;
     }
     const limeOptions = { color: 'lime'}
@@ -39,27 +41,24 @@ export const ReactMap = ({id,polireal}) => {
 
     return (
         <MapContainer center={center} zoom={4}>
-            {/* <ChangeView center={center} zoom={16} />  */}
-            <Polyline pathOptions={limeOptions} positions={polyline} />
+            <ChangeView center={center} zoom={10}/> 
+            <Polyline pathOptions={limeOptions} positions={polyline}/>
             <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             <Marker position={center} icon={MarkerIcon} className="marcador">
-                <Popup><pre>{"Latitude: "+ center[0]+ " ,Longitude: "+ center[1]}</pre></Popup>
+                <Popup><pre>{"Lat: "+ center[0]+ " ,Long: "+ center[1]}</pre></Popup>
             </Marker>
             {
                 polireal.map(punto =>(
-                    // var latp=punto.Latitud.toString();
-                    // var longp=punto.Longitud.toString();
-                    // console.log([latp,longp]);
                     <Marker key={punto.IdEnvio} position={[punto.Latitud.toString(),punto.Longitud.toString()]} icon={CircleIcon}>
                         <Popup><pre>{"Hora: " + punto.Hora}</pre></Popup>
                     </Marker>
                 ))
             }
-            <Marker position={mfinal} icon={MarkerIcon} >
-                <Popup><pre>{"Latitude: "+ center[0]+ " ,Longitude: "+ center[1]}</pre></Popup>
+            <Marker position={mfinal} icon={StartIcon} >
+                <Popup><pre>{"Lat: "+ center[0]+ " ,Long: "+ center[1]}</pre></Popup>
             </Marker>
         </MapContainer>
     )
