@@ -8,6 +8,8 @@ export const datesSlice = createSlice({
         time: '',
         long:'',
         lat: '',
+        lasid: 0,
+        polireal: [],
         latlong:[],
         timehour:[]
     },
@@ -18,6 +20,10 @@ export const datesSlice = createSlice({
             state.time=action.payload.Hora;
             state.long=action.payload.Longitud;
             state.lat=action.payload.Latitud;
+            if(state.lasid!=action.payload.IdEnvio){
+                state.polireal.push(action.payload);
+                state.lasid=action.payload.IdEnvio;
+            };
         },
         polilineDates: (state,action) => {
             state.latlong=action.payload;

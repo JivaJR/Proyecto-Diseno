@@ -82,7 +82,6 @@ export const Home = () => {
     };
 
     const Datos = useSelector(state => state.dates)
-    const center = [Datos.lat,Datos.long]
     const dispatch=useDispatch();
 
     setInterval(() => {
@@ -148,8 +147,7 @@ export const Home = () => {
             <Main open={open}>
                 <DrawerHeader />
                 <TableCoors {...Datos}/>
-                
-                <ReactMap {...Datos} center={center}/>
+                <ReactMap {...Datos}/>
             </Main>
         </Box>
     )
