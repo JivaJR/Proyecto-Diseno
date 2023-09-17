@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../../css/react-leaflet.css';
-import {MarkerIcon, MarkerIconFlag} from './react-leaflet-icon.js';
+import {CircleIcon, FlagIcon, MarkerIcon} from './react-leaflet-icon.js';
 
 export const ReactMap = ({id,polireal}) => {
 
@@ -49,7 +49,7 @@ export const ReactMap = ({id,polireal}) => {
             </Marker>
             {
                 polireal.map(punto =>(
-                    <Marker position={[punto.Latitud.toString(),punto.Longitud.toString()]} icon={MarkerIconFlag}>
+                    <Marker key={punto.IdEnvio} position={[punto.Latitud.toString(),punto.Longitud.toString()]} icon={CircleIcon}>
                         <Popup><pre>{"Hora: " + punto.Hora}</pre></Popup>
                     </Marker>
                 ))

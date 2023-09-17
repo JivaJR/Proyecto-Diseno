@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../../css/react-leaflet.css';
-import {MarkerIcon,MarkerIconFlag} from './react-leaflet-icon.js';
+import {CircleIcon, FlagIcon, MarkerIcon, TaxiIcon} from './react-leaflet-icon.js';
 import { useSelector } from 'react-redux';
 import { useMapEvents } from 'react-leaflet/hooks'
 import { Box } from '@mui/material';
@@ -49,11 +49,17 @@ export const ReactMapConsulta = ({lat,long,polyline=[]}) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={center} icon={MarkerIcon} >
+            <Marker position={center} icon={TaxiIcon} >
                 <Popup><pre>inicio</pre></Popup>
             </Marker>
-
-            <Marker position={mfinal} icon={MarkerIconFlag} >
+            {
+                polyline.map(punto =>(
+                    <Marker position={[punto[0].toString(),punto[1].toString()]} icon={CircleIcon}>
+                        {/* <Popup><pre>{"Hora: " + punto.Hora}</pre></Popup> */}
+                    </Marker>
+                ))
+            }
+            <Marker position={mfinal} icon={FlagIcon} >
                 <Popup><pre>final <a href="https://www.freepik.es/icono/bandera_559219#fromView=search&term=flag&page=1&position=34">Icon by Prosymbols</a></pre></Popup>
             </Marker>
         </MapContainer>
