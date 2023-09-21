@@ -84,12 +84,12 @@ export const Consultas = () => {
         long:-74.851111111111,
         id: 0
     }
-    const {latlong} = useSelector(state => state.dates)
+    const {policonsultas} = useSelector(state => state.dates)
     const [polyline, setpolyline] = useState([])
 
     useEffect(() => {
-        setpolyline(latlong.data)
-    }, [latlong.data])
+        setpolyline(policonsultas)
+    }, [policonsultas.length])
     return (
         <Box sx={{ display: 'flex'}}>
             <CssBaseline />
@@ -143,16 +143,6 @@ export const Consultas = () => {
                 </List>
                 <Divider />
                 <List>
-                    {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                        </ListItem>
-                    ))} */}
                     <SideBar/>
                 </List>
             </Drawer>

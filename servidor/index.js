@@ -53,8 +53,8 @@ app.get('/consultas',(req,res) => {
     var {inicial,final} = req.query;
     console.log(inicial,final)
     let tabledb = env.TABLE;
-
-    conexion.query(`SELECT * FROM ${tabledb} WHERE (Fecha BETWEEN '${inicial}' AND '${final}')`, (err, result) => {
+    var sqlquerecon = `SELECT * FROM ${tabledb} WHERE (Fecha BETWEEN '${inicial}' AND '${final}')`
+    conexion.query(sqlquerecon, (err, result) => {
         if (!err) {
             let info = result;
             let latlon = Array(0);

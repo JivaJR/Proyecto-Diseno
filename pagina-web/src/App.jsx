@@ -1,7 +1,9 @@
 import { useDispatch} from 'react-redux';
-import './App.css'
+import { AppTheme } from './theme/AppTheme';
 import { AppRouter } from './router/AppRouter'
 import { searchDates } from './store/dates/thunks';
+import './App.css'
+import 'react-calendar/dist/Calendar.css';
 
 function App() {
 
@@ -9,10 +11,9 @@ function App() {
   dispatch(searchDates())
 
   return (
-    <>
+    <AppTheme>
       <AppRouter/>
-    </>
-    
+    </AppTheme>
   )
 }
 

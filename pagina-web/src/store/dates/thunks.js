@@ -16,13 +16,13 @@ export const searchDates = () => {
 }
 
 export const searchDatesPoliline = (inicial,final) => {
+    console.log(inicial,final)
 
     return async(dispatch) => {
         await fetch(`${env.FETCHURL}/consultas?inicial=${inicial}&final=${final}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            dispatch(polilineDates(data));
+            dispatch(polilineDates(data.data));
         })
     }
 
