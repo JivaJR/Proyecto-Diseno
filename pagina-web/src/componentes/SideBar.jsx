@@ -14,10 +14,10 @@ export const SideBar = () => {
     const dispatch = useDispatch();
 
     const [maxdatefi, setmaxdatefi] = useState(today);
-    const [mindateff, setmindateff] = useState(newmin);
+    const [mindateff, setmindateff] = useState(today); //aqui newmin
 
     const [finalDate, setfinalDate] = useState(today)
-    const [initialDate, setinitialDate] = useState(newmin);
+    const [initialDate, setinitialDate] = useState(today); //aqui newmin
 
     const newmaxdate = (data) => {
         setfinalDate(data) 
@@ -38,7 +38,7 @@ export const SideBar = () => {
         var finalcompleto = final+'T'+hfinal
         console.log('fecha inicial: ',inicialcompleto)
         console.log('fecha Final: ',finalcompleto)
-        dispatch(searchDatesPoliline(inicial,final))
+        dispatch(searchDatesPoliline(inicialcompleto,finalcompleto))
     } 
     
     return (
@@ -50,7 +50,7 @@ export const SideBar = () => {
                 <strong>Hora inicial por defecto: 00:00:00</strong>
                 {/*ESte es el de inicio*/}
                 <Calendar margin='auto'onChange={newmindate} value={initialDate} maxDate={maxdatefi} minDate={newmin}/>
-                <form>
+                <form className='time-selector'>
                     <input
                         type="time"
                         step="1"
@@ -62,7 +62,7 @@ export const SideBar = () => {
                 <Typography variant='h6' marginBottom={'10px'} marginTop={'10px'}>Fecha final</Typography>
                 <strong>Hora final por defecto: 23:59:59</strong>
                 <Calendar onChange={newmaxdate} value={finalDate} maxDate={today} minDate={mindateff}/>
-                <form>
+                <form className='time-selector'>
                     <input
                         type="time"
                         step="1"

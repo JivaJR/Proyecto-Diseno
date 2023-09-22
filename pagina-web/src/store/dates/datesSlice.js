@@ -23,7 +23,7 @@ export const datesSlice = createSlice({
             if(state.lasid!=action.payload.IdEnvio){
                 state.polireal.push(action.payload);
                 state.lasid=action.payload.IdEnvio;
-            };
+            }
         },
         polilineDates: (state,action) => {
             state.datosconsulta=action.payload;

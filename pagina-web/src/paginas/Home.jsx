@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -91,6 +91,7 @@ export const Home = () => {
     return (
         <Box sx={{ display: 'flex'}}>
             <CssBaseline />
+
             <AppBar position="fixed" open={open}>
                 <Toolbar>
                     <IconButton
@@ -107,6 +108,7 @@ export const Home = () => {
                     </Typography>
                 </Toolbar>
             </AppBar>
+
             <Drawer
                 sx={{
                 width: drawerWidth,
@@ -141,11 +143,13 @@ export const Home = () => {
                 </List>
                 <Divider />
             </Drawer>
+
             <Main open={open}>
                 <DrawerHeader />
                 <TableCoors {...Datos}/>
                 <ReactMap {...Datos}/>
             </Main>
+
         </Box>
     )
 }

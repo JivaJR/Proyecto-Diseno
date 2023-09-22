@@ -23,6 +23,16 @@ conexion.connect(function(err) {
     console.log('BD Conectada exitosamente');
 });
 
+function verifecha(a,m,d) {
+    if (d.length<2 & d < 10) {
+        d = "0" + d;
+    }
+    if ( m.length<2 & m < 10) {
+        m = "0" + m;
+    }
+    return(a+'-'+m+'-'+d)
+}
+
 //Pruebas
 app.set('views', './views')
 app.set('view engine', 'pug');
@@ -51,21 +61,25 @@ app.get('/recibir',(req,res) => {
 app.get('/consultas',(req,res) => {
 
     var {inicial,final} = req.query;
-    console.log(inicial,final)
+    console.log('Se recibieron los parametros: ')
+    console.log('inicial: ',inicial,' final: ',final)
+    inicial = inicial.toString()
+    final = final.toString()
+    var [fechai,horai] = inicial.split('T')
+    var [fechaf,horaf] = final.split('T')
+    var [yeari,mesi,diai] = fechai.split('-')
+    var [yearf,mesf,diaf] = fechaf.split('-')
+    fechai = verifecha(yeari,mesi,diai)
+    fechaf = verifecha(yearf,mesf,diaf)
+    console.log('Se realizara consulta con: ')
+    console.log('inicial: ',fechai,' ',horai,' final: ',fechaf,' ',horaf)
     let tabledb = env.TABLE;
-    var sqlquerecon = `SELECT * FROM ${tabledb} WHERE (Fecha BETWEEN '${inicial}' AND '${final}')`
-    conexion.query(sqlquerecon, (err, result) => {
+    const sqlpet = `SELECT * FROM ${tabledb} WHERE CONCAT(Fecha, ' ', Hora) BETWEEN '${fechai} ${horai}' AND '${fechaf} ${horaf}';`
+    conexion.query(sqlpet, (err, result) => {
         if (!err) {
             let info = result;
-            let latlon = Array(0);
-            let timeStamp = Array(0);
-            for (var i=0;i<info.length;i++){
-                latlon[i] = [info[i]['Latitud'],info[i]['Longitud']];
-                timeStamp[i] = [info[i]['Fecha'],info[i]['Hora']];
-            }
             res.status(200).json({
-                data: latlon,
-                time:timeStamp
+                data: info
             });
         }else {
             console.log(err);

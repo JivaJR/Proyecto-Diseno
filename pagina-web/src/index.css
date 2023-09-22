@@ -1,6 +1,8 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
 }
+
 body{
   margin:0px
 }
@@ -27,4 +29,7 @@ body{
 .calendario .react-calendar{
   margin: auto;
   max-width: 90%;
+}
+.time-selector{
+  padding-top: 10px;
 }

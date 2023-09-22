@@ -1,11 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../../css/react-leaflet.css';
-import {CircleIcon, FlagIcon, MarkerIcon, TaxiIcon} from './react-leaflet-icon.js';
+import {CircleIcon, FlagIcon, TaxiIcon} from './react-leaflet-icon.js';
 import { useSelector } from 'react-redux';
-import { useMapEvents } from 'react-leaflet/hooks'
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Slider } from '@mui/material';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 
 const FinalMarker = ({pos}) =>{
@@ -19,27 +18,28 @@ const FinalMarker = ({pos}) =>{
     return(null)
 }
 
-export const ReactMapConsulta = ({lat,long,polyline=[]}) => {
+export const ReactMapConsulta = ({lat,long,polyline=[],sliderValue=0}) => {
 
     const {datosconsulta} = useSelector(state => state.dates)
+    var latlon,condf,latlon2,latf,longf;
+    
     if(polyline.length != 0) {
-
-        var latlon=polyline[0]
+        latlon=polyline[0]
         lat=latlon[0].toString();
         long=latlon[1].toString();
 
-        var condf=polyline.length-1;
-        var latlon2=polyline[condf]
-        var latf=latlon2[0].toString();
-        var longf=latlon2[1].toString();
+        condf=polyline.length-1;
+        latlon2=polyline[condf]
+        latf=latlon2[0].toString();
+        longf=latlon2[1].toString();
     } else {
         lat=lat.toString();
         long=long.toString();
-        var latf=0;
-        var longf=0;
+        latf=0;
+        longf=0;
     }
-    var [center, setcenter] = useState([lat,long]);
-    var [mfinal, setmfinal] = useState([0,0])
+    const [center, setcenter] = useState([lat,long]);
+    const [mfinal, setmfinal] = useState([0,0])
 
     useEffect(() => { 
         setcenter([lat,long])
@@ -59,7 +59,7 @@ export const ReactMapConsulta = ({lat,long,polyline=[]}) => {
             mapconsulta.current.setView(center)
         }
     }
-    
+
     return (
         <Box>
             <MapContainer center={center} zoom={4} ref={mapconsulta}>
@@ -75,11 +75,24 @@ export const ReactMapConsulta = ({lat,long,polyline=[]}) => {
                 {
                     datosconsulta.map(punto =>(
                         <Marker key={punto.IdEnvio} position={[punto.Latitud.toString(),punto.Longitud.toString()]} icon={CircleIcon}>
-                            <Popup><pre>{"Fecha: "+ punto.Fecha.split('T')[0] +" Hora: " + punto.Hora}</pre></Popup>
+                            <Popup><pre>{"Fecha: "+ punto.Fecha.split('T')[0] +" Hora: " + punto.Hora+" id: "+punto.IdEnvio}</pre></Popup>
                         </Marker>
                     ))
                 }
                 <FinalMarker pos={mfinal}/>
+                {
+                    datosconsulta.length
+                    ? <div>
+                        <Popup position={[datosconsulta[sliderValue].Latitud.toString(),datosconsulta[sliderValue].Longitud.toString()]} onClose={true}>
+                            <pre>
+                                {"Fecha: "+ datosconsulta[sliderValue].Fecha.split('T')[0] +" Hora: " + datosconsulta[sliderValue].Hora+" id: "+datosconsulta[sliderValue].IdEnvio}
+                            </pre>
+                        </Popup>
+                        <ChangeView center={[datosconsulta[sliderValue].Latitud.toString(),datosconsulta[sliderValue].Longitud.toString()]} />
+                    </div>
+                    :null
+                }
+                
             </MapContainer>
             <IconButton
                 onClick={centrarMapa}

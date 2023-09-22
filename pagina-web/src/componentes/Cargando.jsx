@@ -1,4 +1,3 @@
-import React from 'react'
 import { CircularProgress, CssBaseline, Grid } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import { searchDates } from '../store/dates/thunks';
