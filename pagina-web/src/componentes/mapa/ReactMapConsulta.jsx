@@ -81,11 +81,11 @@ export const ReactMapConsulta = ({lat,long,polyline=[],sliderValue=0}) => {
                 }
                 <FinalMarker pos={mfinal}/>
                 {
-                    datosconsulta.length
+                    datosconsulta[sliderValue]
                     ? <div>
                         <Popup position={[datosconsulta[sliderValue].Latitud.toString(),datosconsulta[sliderValue].Longitud.toString()]} onClose={true}>
                             <pre>
-                                {"Fecha: "+ datosconsulta[sliderValue].Fecha.split('T')[0] +" Hora: " + datosconsulta[sliderValue].Hora+" id: "+datosconsulta[sliderValue].IdEnvio}
+                                {"Fecha: "+ datosconsulta[sliderValue].Fecha.split('T')[0] +" Hora: " + datosconsulta[sliderValue].Hora}
                             </pre>
                         </Popup>
                         <ChangeView center={[datosconsulta[sliderValue].Latitud.toString(),datosconsulta[sliderValue].Longitud.toString()]} />

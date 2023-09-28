@@ -58,6 +58,7 @@ export const SideBar = () => {
                         placeholder="Time"
                         onChange={(ev) =>{sethinicial(ev.target.value)}}
                     />
+                    <input type="time" />
                 </form>
                 <Typography variant='h6' marginBottom={'10px'} marginTop={'10px'}>Fecha final</Typography>
                 <strong>Hora final por defecto: 23:59:59</strong>

@@ -94,6 +94,7 @@ export const Consultas = () => {
         setpolyline(policonsultas)
         if(policonsultas.length>1){
             setmaxslider(policonsultas.length-1)
+            setSliderValue(0)
         }
     }, [policonsultas.length])
 
